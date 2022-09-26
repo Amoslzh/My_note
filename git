@@ -59,3 +59,18 @@ git branch -D name 删除name分支
 
 
 ##Git与github连接
+1.创建密钥
+终端输入
+ssh-keygen -t rsa -C "邮箱"
+然后去C盘用户找到.shh文件
+里面一个是私钥一个是公钥
+复制到github里
+
+
+2.创建仓库后
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/Amoslzh/My_note.git /git@github.com:Amoslzh/My_note.git
+git push -u origin main
