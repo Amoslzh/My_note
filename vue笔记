@@ -1,0 +1,2033 @@
+1.vue3的引入
+head加入
+<script src="Vue3.js"></script>
+
+三母运算 ture?a:b
+
+1 v-on:... 鼠标事件
+<div
+
+02.v-once   锁定元素
+3.v-html   插入标签内容
+4.v-bind   绑定属性   v-bind:class="aa"
+5.v-show = true  控制元素显示影藏 false ->display=none
+6.v-if = false  元素直接不渲染
+
+
+
+>
+</div>
+
+小细节
+@click='mmsg = mas;$emit("go","ggg")' 两个事件这样写就不会报错
+
+2.vue的基本使用
+会被锁死
+			<div v-html='dd'></div> 可以在里面加入html元素 并且覆盖文本内容
+	
+</div>
+
+<script>
+		Vue.createApp({
+			data:function(){
+				return{
+					cc:'hhhh',
+					bb:'www'
+					dd:'<div>123</div>'
+				}
+			},
+			
+			methods:{
+				aww:function(){
+					alert(1)
+					this.cc = 'cap'  可以用this直接改data
+				}
+			}	
+		}).mount("#test")
+
+
+		**里面的变量方法，作用域仅在#test里生效，并且不能用户根元素。
+		**若mount(div 或类名) 只会找到第一个元素
+
+</script>
+
+3.动态参数
+<div v-bind:[a] ='abc' v-on:[a]></div> 
+v-bind或on冒号后面的参数可以通过[]来改变
+动态参数是class时，修改会变成添加而不是替换
+
+<script>
+	Vue.createApp({
+		data:function(){
+			return{
+				cont:'hhhh',
+			}
+		},
+		
+		methods:{
+			aww:function(){
+				alert(1)
+			}
+		}	
+	}).mount("#test")
+
+</script>
+
+4.缩写
+v-on  @   v-bind :
+
+<div @click='a' :class='b'></div>
+
+5.外部访问vue.createApp
+<script type="text/javascript">
+	var vm = vue.createApp()....
+
+	vm.$data.tt
+	vm.tt
+	vm.fun()
+
+</script>
+
+5.v-if 用法
+<span @click="showt" v-if="a==1">caoniama1</span>
+	<span @click="showt" v-else-if="a==2">caoniama2</span>
+	<span @click="showt" v-else="a==3">caoniama3</span>
+<script type="text/javascript">
+	Vue.createApp({
+			data() {
+				return{
+					'a':4,
+					'b':3,
+				}
+			},
+			methods:{
+				showt(){
+					alert(1)
+				}
+			}
+		}).mount(vm)
+</script>
+
+6.v-for 赋予事件时会复制
+<div id="vm">
+	<div v-for="(x,y,z) in arr">   JSON x值 y键 z下标
+		{{x}}:{{y}}:{{z}}
+	</div>
+	<div v-for="(x,y) in ar">
+		{{x}}:{{y}}:{{z}}
+	</div>
+</div>
+arr:{a:1,b:2,c:3},
+ar:[1,2,3]
+
+1:a:0
+2:b:1
+3:c:2
+1:0:
+2:1:
+3:2:
+
+用for时尽量要有一个key(number or string) 尽量每一个数据都有唯一的表示
+<div v-for="(x,y,z) in arr" :key='...'>
+
+也可直接实数
+ <div v-for="x in 3" :key='...'>  1 2 3
+
+7.v-for 与v-show联动   v-if优先级比v-for高 尽量不要一起使用
+<div id="vm">
+	<div v-for="x in stu" :key='x.id' v-show="x.id==3?false:true">  若用v-if先比v-for执行 
+		{{x.name}}										无法获得x.id 所以结果true
+	</div>	
+</div>
+
+<script>
+	Vue.createApp({
+		data() {
+			return {
+				stu:[{'name':'fuck','id':1},
+				{'name':'fuck2','id':2},
+				{'name':'fuck3','id':3},
+				{'name':'fuck4','id':4},]
+			}
+		},
+		methods:{
+			
+		}
+	}).mount('#vm')
+</script>
+
+
+8.计算属性   属于属性 所以运行开始会初始化一次 即打开浏览器就会运行一次
+<script type="text/javascript">   和methods的区别是 computed只有和他有关的属性改变才会改变
+	Vue.createApp({					methods在页面上的属性改变就会重新渲染
+		computed:{
+			showda(){
+				return new Date()
+			}
+		},
+		methods:{
+			fn(){
+				return new Date()
+			},
+		}
+	}).mount('#vm')
+</script>
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<script src="Vue3.js"></script>
+		<style>
+
+		</style>
+	</head>
+	<body>
+		<div id="vm">
+			<div>
+				{{fn()}}
+				
+				<div>
+					{{showda}}
+					{{red}}
+				</div>
+				<button type="button" @click="cg">HHHH</button>
+			</div>
+			
+			<!-- <input type="button" name="" id="" value="cao" @click="cg"/> -->
+		</div>
+		
+
+			<script type="text/javascript">   
+				Vue.createApp({
+					data() {
+						return{
+							red:1
+						}
+						
+					},
+					computed:{			
+						showda(){
+							console.log(this.red)
+							return new Date()
+						}
+					},
+					methods:{
+						fn(){
+							return new Date()
+						},
+						cg(){
+							this.red++;
+							console.log(this.red)
+						}
+					}
+				}).mount('#vm')
+			</script>
+			
+		</script>
+	</body>
+</html>
+
+
+9.settet get
+计算属性里setter 放入set 需要参数  get方法
+get作为属性的输出配合return
+set做为传参进行操作
+
+set在计算属性被赋值时触发 传入的参数为赋值给予的值
+
+
+<div id="vm">
+			{{tst}}
+			<input type="button" name="" id="" value="cao" @click="cg"/>
+		</div>
+		
+		<script type="text/javascript">
+			Vue.createApp({
+				data() {
+					return{
+						a:100,
+					}
+				},
+				computed:{
+					tst:{
+						get(){
+							return this.a
+						},
+						set(va){
+							this.a = va;
+						}
+					},
+					
+				},
+				methods:{
+					cg(){
+						this.tst = 5
+					}
+				}
+			}).mount('#vm')
+		</script>
+
+10.监听器
+<script type="text/javascript">
+	Vue.createApp({
+		data() {
+			return{
+				red:'red',
+				blue:1,
+				pink:'pink'
+			}
+		},
+		methods:{
+			cg(){
+				// this.red = 'pink'
+				this.blue++
+			}
+		},
+		computed:{
+			cont(){
+				return this.blue
+			}
+		},
+		watch:{
+			red(newv,oldv){
+				console.log(1)
+			},
+			cont(){
+				console.log('cont改变')
+			}
+		},
+	
+	}).mount('#vm')
+
+可以用来箭头data属性和计算属性   计算属性里的属性也属于自身 改变了也会触发
+支持两个参数 一个是新值 一个是旧值
+
+</script>
+
+10.深度监听
+<script type="text/javascript">
+	Vue.createApp({
+		data() {
+			return{
+				aa:{
+					t1:2,
+					t2:4,
+				},
+				arr:[1,2,3,4]
+			}
+		},
+		methods:{
+			cg(){
+				this.aa.t1 = 3;
+			}
+		},
+		watch:{
+			// aa(){
+			// 	alert(1)
+			// }
+			aa:{
+				handler(){
+					alert(1234)
+				},
+				deep:true,      深度监听开启 默认为false  可以监听数组，JSON里的数据的改变
+				immeidate:true, 初始化自动运行一次 默认为false
+			}
+		}
+		
+	}).mount('#vm')
+</script>
+
+11.事件扩展
+<div id="vm">
+	<div @click='cg(1,tt,$event),fuck()'></div> 要绑定多个事件时一定要有括号  
+</div>
+<script type="text/javascript">
+	Vue.createApp({
+		methods:{
+			cg(val,ww,ee){  事件可以传参 $event是鼠标事件
+				this.aa.t1 = 3;
+			}
+		},
+		
+	}).mount('#vm')
+</script>
+
+11.Vue3事件修饰符 用.连接
+.stop 阻止事件冒泡  .prevent 阻止事件默认行为 比如滑动选择
+.capture 捕获修饰符 .self精准事件触发修饰符
+.once 只触发一次修饰符 .passive为优化移动端滚动事件的修饰符
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<script src="Vue3.js"></script>
+		<style type="text/css">
+			#blue{width: 100px;height: 100px;background-color: blue;}
+			#green{width: 60px;height: 60px;background-color: green;}
+			#red{width: 30px;height: 30px;background-color: red;}
+		</style>
+	</head>
+	<body>
+		<div id="vm">
+			<div id="blue" @click="show1">   在最上面的元素的事件先冒泡出来 最底下的先捕获到
+				<div id="green" @click.stop="show2">  阻止冒泡  blue green   .self 只有点它自己的时候才会触发
+					<div id="red" @click="show3"></div>  
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		Vue.createApp({
+			data() {
+				return{
+					sha:"shabi"
+				}
+			},
+			methods:{
+				show1(){
+					alert('blue')
+				},
+				show2(){
+					alert('green')
+				},
+				show3(){
+					alert('red')
+				},
+			}
+		}).mount('#vm')
+	</script>
+</html>
+
+12.按键事件 别名
+<div id="vm">
+	<input @keydown.enter.delete.tab.left.up.esc="sb"/>
+	//right  down
+</div>	
+
+<script type="text/javascript">
+	Vue.createApp({
+		data() {
+			
+		},
+		methods:{
+			sb(){
+				alert(123)
+			}
+		}
+	}).mount('#vm')
+</script>
+
+
+13.修饰键
+<div id="vm">
+	<input @keydown.ctrl.up.left.exact="sb"/>
+</div>	
+修饰键 用来单独用组合用 若想精准只用此组合 加上exact
+ctrl alt shift meta 系统菜单键  exact也可用在其他事件上
+<script type="text/javascript">
+	Vue.createApp({
+		data() {
+			
+		},
+		methods:{
+			sb(){
+				alert(123)
+			}
+		}
+	}).mount('#vm')
+</script>
+
+14.鼠标修饰符
+<div @click.left></div>  左键
+<div @click.right></div>  右键  注意左右键修饰不能同时村庄 左键的事件也不能加右键事件
+比如右键事件 <div @contextmenu.left='go'></div> 右键菜单事件不能加左键修饰 否则会无效
+
+15.表单元素输入绑定  v-model的值会覆盖掉原来的内容
+<div id="vm"  >
+	<select v-model="dd">
+		<option>c</option>  在下拉框 输出option的value
+		<option>d</option>
+		<option>m</option>
+	</select>
+	{{dd}}
+	
+	<input type="radio" value="A" v-model="bb"/> 在单选框上 输出value
+	<input type="radio" value="B" v-model="bb"/>
+	<input type="radio" value="C" v-model="bb"/>
+	{{bb}}
+	
+	<input type="checkbox" v-model="cc" /> 在复选框 输出false true
+	{{cc}}
+	
+	文本框输出文本内容
+</div>	
+
+<script type="text/javascript">
+	Vue.createApp({
+		data() {
+			return{
+				dd:'fuck',
+				bb:'',
+				cc:true
+			}
+		},
+		methods:{
+			sb(){
+				alert(123)
+			}
+		}
+	}).mount('#vm')
+</script>
+
+15.双向绑定修饰符
+<input v-model.lazy.number="msg"/>
+.lazy 失去焦点后才触发
+.number 改成number类型 若一开始就是string则后面无效 一开始是number 截取最前面的number输出
+.trim 输出内容不包含 前 后 空格
+
+14.classs style的绑定
+<div id="vm">
+	<div :class={aa:true,bb:true} :style={}>
+		
+	</div>
+</div>
+也可通过data来赋值
+
+15.用数组来绑定
+<style>
+		#vm .kuan{width: 100px;}
+		#vm .gao{height: 100px;background: red;}
+	</style>
+	<script type="text/javascript" src="Vue3.js">
+		
+	</script>
+</head>
+<body>
+	<div id="vm">
+		<div :class="wi" :class='[类名]' :style="[co]">  style 数组里面放JASON  class里面可以放data里的数组，或者直接放类名
+															可放入多个JASON或数组
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	Vue.createApp({
+		data() {
+			return{
+				wi:['kuan','gao'],
+				co:{ 
+					'margin':'400px',
+					'width':'100px',
+					'height':'100px',
+					'background':'red',
+					},
+				st:{
+					'width':'290px',
+					'background':'red'
+				}
+						
+			}
+		}
+	}).mount("#vm")
+</script>
+
+16.conponent
+component 第一个参数为组件名称
+createAPP无法使用里面的数据
+每个组件的数据相互独立
+<fuck></fuck>
+
+<script type="text/javascript">
+	Vue.createApp({
+		data() {
+			return{
+				gg:2222			
+			}
+		}
+	}).component('fuck',{
+		data(){
+			return{
+				tt:1,
+			}
+		},
+		template:`<div @click=tt++>{{tt}}</div>`, 模板
+	}).mount("#vm")
+</script>
+
+17.数组穿参数
+<body>
+	<div id="vm">
+		<fuck v-for="ms in msg" :p1="ms.name"></fuck> 也可以直接 p1:'ww'
+	</div>
+</body>
+<script type="text/javascript">
+	Vue.createApp({
+		data() {
+			return{
+				msg:[
+					{'id':0,'name':'cao'},
+					{'id':1,'name':'ni'},
+					{'id':2,'name':'ma'},
+				],
+				ww:'666'
+			}
+		}
+	}).component('fuck',{
+		data(){
+			
+		},
+		props:['p1','p2'],  这里定义参数名 使用方法与data一样
+		template:`<div>{{p1}}</div>`,
+	}).mount("#vm")
+</script>
+
+18.控件像父级传参
+<div id="vm">
+		<cao @go='pfn'></cao>
+	</div>
+
+<script type="text/javascript">
+	Vue.createApp({
+
+		methods:{
+			pfn(cMsg){
+				alert(1)
+			},
+		},
+	}).component('cao',{
+		"methods":{
+			needtop(){
+				this.$emit('go','hhh')  第一个参数为定义名称，第二个为父级方法的参数
+			}
+		},
+		"template":`<button @click='needtop'>组件传输</button>
+		`，
+		"template":`<button @click="$emit('go','hhh')">组件传输</button>
+			`或者直接在temp里面加
+	}).mount('#vm')
+</script>
+
+19.v-model父与组件的互通
+<body>
+	<div id="vm"> 
+		<input v-model="msg" /><br />
+				穿参给控件
+		<cao :zmsg="msg" @go='msg = $event'></cao> 也可直接调用cgmsg函数 $event为传递的第一个参数
+	</div>
+</body>
+<script type="text/javascript">
+	Vue.createApp({
+		data() {
+			return{
+				msg:''
+			}
+		},
+		methods:{
+			cgmsg(cmsg,dd){
+				this.msg = cmsg
+				console.log(dd)
+			}
+		},
+		computed:{
+			
+		}
+	}).component('cao',{
+		方法1 input事件触发则发送参数给父级 
+		// template:`<input :value='zmsg' @input='$emit("go",$event.target.value,2)'/>`, 
+		template:`<input v-model='mms'/>`,  方法2 利用v-model绑定 input改变时 给mms赋值 赋值触发set函数 给父级发送修改的的val
+		props:['zmsg'],
+		computed:{
+			mms:{
+				get(){
+					return this.zmsg	
+				},
+				set(val){
+					 this.$emit('go',val)
+				}
+			}
+		}
+			
+		
+	}).mount('#vm')
+</script>
+
+20.插槽 slot
+<cao :zmsg="msg" @go='msg = $event'>
+	
+		dddd
+		{{msg}}
+		<div></div>  里面的内容会被放进slot 可以使用createappp里面的数据，不能使用component
+</cao>
+
+template:`<div><input v-model='mms'/><slot></slot></div>`,
+
+21.component标签
+<div id="vm">
+		<button v-for="cname in arr" @click="msg=cname">{{cname}}</button>
+		<component :is="msg"></component>   变量直接用
+		<component :is="'ma'" aaa='www' class='aaa'></component>  非变量需要再加一个引号 可以放属性 不被覆盖
+
+
+		<wwa v-is="'ff'"></wwa> 也可以随便创建一个标签赋予模板覆盖
+
+		<span v-is="'ff'">
+				fffff
+			</span>
+
+	</div>
+		
+</body>
+<script>
+	vmp = Vue.createApp({
+		data() {
+			return{
+				msg:'ww',
+				arr:['cao','ni','ma']
+			}
+		},
+	})
+	
+	vmp.component('cao',{
+		template:`<div>cao</div>`
+	})
+	vmp.component('ni',{
+		template:`<div>ni</div>`
+	})
+	vmp.component('ma',{
+		template:`<div>ma</div>`
+	})
+	
+	vmp.mount('#vm')
+</script>
+
+
+22.局部组件components
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<script src="Vue3.js"></script>
+		<style>
+			.bb{width: 200px;height: 200px;border: #000000 solid 1px;background-color: #CCCCCC;}
+			.active{background-color: red;}
+		</style>
+	</head>
+	<body>
+		<div id="vm">
+			<prn :sha="msg"></prn>
+			
+		</div>
+	</body>
+	<script type="text/javascript">
+		
+		vt = Vue.createApp({
+			data() {
+				return{
+					msg:['cao','ni','ma'],
+				}
+			}
+		})
+		
+		vt.component('prn',{
+			data(){
+				return{
+					'mmsg':'cao'
+				}
+			},
+			template:`<div><button v-for="mas in sha" key:='mas' @click='mmsg = mas'
+			:class='mmsg==mas?"active":""'>{{mas}}</button>
+			<component :is="'fuck'" :son='mmsg'></component>
+			</div>`,
+			props:['sha','bi'],
+
+			在里面加，也可以无限迭代
+
+			components:{
+				'fuck':{
+					'props':['son'],
+					template:`<div class='bb'>{{son}}</div>`
+				}，
+				components:{
+				'fuck':{
+					'props':['son'],
+					template:`<div class='bb'>{{son}}</div>`
+				}
+			}
+			}
+			
+		})
+		
+		vt.mount('#vm')
+	</script>
+</html>
+
+
+
+23.参数验证
+<body>
+	<div id="vm">
+		<vmtt :sset='msg'></vmtt>
+	</div>
+</body>
+<script type="text/javascript">
+	Vue.createApp({
+		data() {
+			return{
+				msg:123
+			}
+		},
+		components:{
+			'vmtt':{
+				template:`<div>{{sset}}</div>`,
+				props:{
+					// sset:Number,  若传入参数不为这个 则会警告
+					sset:[Number,String],  可以是多个
+					sset:{
+						'type':Number,  
+						default:123,  默认值
+						required:true,  是否一定传入
+					}
+				}
+			}
+		}
+	}).mount('#vm')
+</script>
+
+24.属性继承
+<body>
+	<div id="vm">
+		<vmee @change='fn'></vmee>   上面的属性都会继承到下面的模板最外部的元素上
+	</div>
+</body>
+<script type="text/javascript">
+	Vue.createApp({
+		data() {
+			return{
+				
+			}
+		},
+		methods:{
+			fn(){
+				alert(1)
+			}
+		},
+		components:{
+			'vmff':{
+				template:`<input />`,
+				inheritAttrs:false,  若不想继承就赋值false
+			},
+			'vmee':{
+				template:`<input v-bind='$attrs'/><input />`,
+
+				若外部有两个元素，则不会继承，但可以用v-bind='$attrs'强制让有元素继承
+			}
+		}
+	}).mount('#vm')
+</script>
+
+
+25.控件与父类 v-model通信
+<body>
+	<div id="vm">
+		<vmt v-model:pp1='msg'></vmt>  这里的msg会传值给pp1,
+	</div>
+</body>
+<script type="text/javascript">
+	Vue.createApp({
+		data() {
+			return{
+				msg:'123'
+			}
+		},
+		components:{
+			vmt:{
+				template:`<input :value='pp1' @input='$emit("update:pp1",$event.target.value)'/><br/>{{pp1}}`, 底下通过"update:pp1"传值上来 pp1改变 msg也发生改变
+				props:['pp1']
+			}
+		}
+	}).mount('#vm')
+</script>
+
+26.指定插槽
+<fcu>
+	<span>www</span>
+	<template v-slot:tt>  指定装入tt插槽
+		<span>www</span>
+	</template>
+	<template v-slot:default>  指定装入默认的插槽 即没有name的 若有了这个 被放在外面的的元素不会被默认装入
+		<span>default</span>
+	</template>
+
+</fcu>
+
+components:{
+	'fcu':{
+		template:`<div>fff<slot name='tt'></slot><slot></slot></div>`
+	}
+}
+
+27.slot数据交互
+<body>
+	<div id="vm">
+		<tts>
+			<template v-slot:default='fuck'> 指定模板里的某个插槽接受，这里为默认插槽
+				     然后这里定义了一个fuck  fuck 现在里面有下面传来的msg mst
+				<div v-for="fu in fuck.mst">{{fu}}{{fuck.msg[fu]}}</div>
+			</template>
+
+            这里也可以用下面解构赋值的方法
+			<template v-slot:default='{msg}'>   改名可以 {msg:newname}
+				     因为下面相当于传了一个 {msg:['cao','ni','ma']} 上来
+				<div v-for="fu in msg">{fu}}</div>
+			</template>
+
+
+
+		</tts>
+	</div>
+	
+</body>
+<script type="text/javascript">
+	Vue.createApp({
+		data() {
+			return{
+				
+			}
+		},
+		components:{
+			tts:{
+				data() {
+					return{
+						arr:['cao','ni','ma'],
+						tts:[0,1,2]
+					}
+				},
+				template:`<div><slot :msg='arr' :mst='tts'></slot></div>`
+				这里定义了msg mst 赋值后发送上去
+				实质是打包成jason发上去 {msg:['cao','ni','ma']}
+			}
+		}
+		
+	}).mount('#vm')
+</script>
+
+28.解构赋值
+<script type="text/javascript">
+	var arr = [1,2,3]
+	var longarr = [1,2,3,4,5,6,7]
+	var [a,b,c] = arr  /a=1 b=2 c=3   类型要与赋的值的类型相同
+	var [a,,c]  = arr  
+	var [a,b,...cao] = longarr  /cao = [3,4,5,6,7]
+	console.log(a,b,cao)
+	
+
+	JSON 的变量命名要和键名相同才能赋值 若要改名加个：号
+	var {a,b} = {a:1,b:2,c:3,d:4};
+	var {a,...mo} = {a:1,b:2,c:3,d:4}; mo={b:2,c:3,d:4}
+	var {a=1,f=10} = {a:undefined,b:2}  a=1 f =10
+	var {a:c,b} = {a:1,b:2,c:3,d:4};  a没有了 变成c了 c=1 改名
+	console.log(a,b)
+
+
+</script>
+
+29.slot动态插槽和插槽缩写样式
+<body>
+	<div id="vm">
+		<button type="button" @click="ff = 'hh'">go</button>
+		<tts>
+			<template #tt>  相当于 v-slot:tt
+				<span>nimade</span>
+			</template>
+			<template #[ff]> 动态更改
+				<span>nimade</span>
+			</template>
+		</tts>
+	</div>
+</body>
+<script type="text/javascript">
+	Vue.createApp({
+		data() {
+			return{
+				ff:''
+			}
+		},
+		components:{
+			'tts':{
+				template:`<div><slot name='tt'></slot><slot name='hh'></slot></div>`
+			}
+		}
+	}).mount('#vm')
+</script>
+
+30.refs
+任何标签都可以使用ref属性赋予一个自定义值，任何通过内置$refs来获取定义的ref的所有的内容元素
+<body>
+	<div id="vm">
+		<button @click="go">go</button>
+		<div ref="gg">hhhhhh</div>    这里给ref添加了gg tt两个
+		<lzh ref='tt'>
+			<template v-slot:default='{mms}'>{{mms}}</template>
+		</lzh>
+	</div>
+</body>
+<script type="text/javascript">
+	Vue.createApp({
+		data() {
+			return{
+				
+			}
+		},
+		methods:{
+			go(){
+				this.$refs.tt.msg ='cao'
+				this.$refs.gg.innerText = 'nimade'  可以直接通过$refs访问标签的所有属性
+			}
+		},
+		components:{
+			lzh:{
+				data() {
+					return{
+						msg:'fuck'
+					}
+				},
+				template:`<div><slot :mms='msg'></slot></div>`
+			}
+		}
+	}).mount('#vm')
+</script>
+
+31.transition标签的使用
+<style>
+	.cao{width: 100px;height: 100px;background-color: #000000;}
+	过渡到cao  cao原本没有的不会被覆盖加上去   cao没有transform: rotate(-30deg) 所以默认最后转会0deg
+	from 和 to 都是1帧   
+
+	进入前的状态
+	.fuck-enter-from{width: 150px;height: 150px;background-color: #00FFFF;transform: rotate(-30deg);} 
+	进入时过渡的状态
+	.fuck-enter-active{transition: 2.5s all ease;}
+	进入完成的状态 一般情况下为了保持和原样式一样 直接不写 或者写成一样
+	.fuck-enter-to{width: 100px;height: 100px;background-color:red;}
+	（中间不能有其他东西 否则会失效·）
+	离开前的状态 一般情况下为了保持和原样式一样 直接不写 或者写成一样
+	.fuck-leave-from{width: 100px;height: 100px;background-color: #000000;}
+	离开时过渡状态
+	.fuck-leave-active{transition: 2.2s all ease;}
+	离开完成时的状态
+	.fuck-leave-to{width: 0px;height: 0px;opacity: 0;transform: rotate(-100deg);}
+</style>
+	</head>
+	<body>
+		<div id="vm">
+			<button @click="tt = !tt" style="margin-bottom: 50px;">傻逼</button>
+			<transition name="fuck">   类的名字要
+				<div class="cao" v-if="tt"></div>  要配合v-if使用  ture时 为进入   false为离开
+			</transition>
+		</div>		
+	</body>
+	<script>
+		Vue.createApp({
+			data() {
+				return{
+					'tt':true
+				}
+			}
+		}).mount('#vm')
+	</script>
+</html>
+
+
+32.自定义标签
+<style>
+		.cao{width: 100px;height: 100px;background-color: #000000;}
+		
+		.fef{width: 150px;height: 150px;background-color: #00FFFF;transform: rotate(-30deg);}
+		.fea{transition: 2.5s all ease;}
+		.fuck-enter-to{background-color:red;}
+		
+		.fuck-leave-from{width: 100px;height: 100px;background-color: #000000;}
+		.fuck-leave-active{transition: 2.2s all ease;}
+		.fuck-leave-to{width: 0px;height: 0px;opacity: 0;transform: rotate(-100deg);}
+	</style>
+</head>
+<body>
+	<div id="vm">
+		<button @click="tt = !tt" style="margin-bottom: 50px;">改变</button>
+		<transition name="fuck"
+			enter-from-class='fef'  以这种格式赋予自定义类样式
+			enter-active-class='fea'
+			:duration="{enter:10000,leave:10000}"  或'1000' 直接给 则是两个都1000ms
+			指from active to 三个过程的最大时间  du > tra 延时  du< tra 没转换完的会强制结束
+		>
+			<div class="cao" v-if="tt"></div>
+			<div class="abb" v-else-if="ok==2"></div> 若想放入多个div 这加v-else-if
+		</transition>
+	</div>
+
+33.生命周期函数
+<div id="vm">
+		<button @click="tt = !tt" style="margin-bottom: 50px;">改变</button>
+		<transition name="fuck"
+			enter-from-class='fef'
+			enter-active-class='fea'
+			:duration="{enter:50000,leave:40000}"
+			
+			@before-enter="bfen"  在进入前触发 bfen函数
+			@enter="ett"		  在进入时触发
+			@after-enter="afen"   在进入之后触发
+			
+			@before-leave="bfle"
+			@leave="www"
+			@after-leave="lfff"
+			
+			:css="false"
+		>
+			<div class="cao" v-if="tt"></div>
+		</transition>
+	</div>		
+</body>
+<script>
+
+	Vue.createApp({
+		data() {
+			return{
+				'tt':true
+			}
+		},
+		methods:{
+
+			都有第一个参数  第个参数是被操作的元素
+			bfen(ell){
+				console.log(ell)
+				console.log('进入之前')
+			},
+			ett(el,done){     enter  leave  有第二个参数 第二个参数没执行时会卡在这个函数吗
+				
+				done() 执行后会马上结束动画，进入下一个生命周期函数
+
+				console.log('进入之中')
+			},
+			afen(){
+				console.log('进入之后')
+			}
+		}
+	}).mount('#vm')
+</script>
+
+
+
+34.初始渲染过渡 只执行一次  最后回到css设置的样式 下面是abc
+<style type="text/css">
+		.abc{
+					width: 100px;
+					height: 100px;
+					background-color: aqua;
+				}
+				.aaa{
+					width: 50px;
+					height: 50px;
+					background-color: red;
+				}
+				.bbb{
+					transition: 5s;
+				}
+				.ccc{
+					width: 150px;
+					height:150px;
+					background-color: red;
+				}
+	</style>
+</head>
+<body>
+	<div id="leo">
+		<transition
+			appear  这个不能漏
+			appear-from-class='aaa'   开始状态
+			appear-active-class='bbb'  变化设置
+			appear-to-class="ccc"   最终变化状态 也可以不写 但结束后还是会变回abc
+		>
+			<div class="abc" v-if='ok'></div>
+		</transition>
+	</div>
+</body>
+<script>
+	Vue.createApp({
+		data() {
+			return{
+				'ok':true,
+			}
+		},
+		methods:{
+			
+		}
+	}).mount('#leo')
+</script>
+
+35.过渡模式
+<transition
+			mode='out-in'  这样每次都是动画结束 下个元素才开始   默认in-out 
+		>
+			<div class="abc" v-if='ok'></div>
+</transition>
+
+36.组件的过渡
+<style>
+		.v-a{width: 100px;height: 100px;background-color: #000000;}
+		.v-b{width: 150px;height: 150px;background-color: pink;}
+		
+		.lac{transition: .5s;}
+		.ltc{width: 0px;height: 0px;opacity: 0;}
+		
+		.eac{transition: .5s;}
+		.efc{width: 30px;height: 30px;transform:rotate(-45deg);}
+	</style>
+</head>
+<body>
+	<div id='vm'>
+		<input v-model="ok" type="radio" id="a" value="v-a" checked/><label for="a">a</label> 通过双向绑定改变ok的值来改变显示的组件
+		<input v-model="ok" type="radio" id="b" value="v-b" /><label for="b">b</label>  for是绑定某个按钮 按住label时也能获取焦点
+		<transition
+			mode="out-in"
+			leave-active-class="lac"
+			leave-to-class="ltc"
+			
+			enter-from-class='efc'
+			enter-active-class="eac"
+			
+		>
+			<component :is="ok"></component>
+		</transition>
+	</div>
+	
+</body>
+<script>
+	Vue.createApp({
+		data() {
+			return{
+				'ok':'v-a',
+			}
+		},
+		components:{
+			'v-a':{
+				template:`<div class='v-a'></div>`
+			},
+			'v-b':{
+				template:`<div class='v-b'></div>`
+			}
+		}
+	}).mount('#vm')
+</script>
+
+37.transition-grop
+可放入多个标签 但要都要加上逻辑判断 或key
+<transition-group
+	enter-from-class='efc'
+	enter-active-class="eac"
+>
+	<div class="num" v-for="i in arr" :key='i'>{{i}}</div>
+	<div v-if='...'></div>
+</transition-group>
+
+38.transition 里的move属性
+<style>
+		.num{float: left;margin-left: 10px;}
+		
+		.efc{transform: translateY(-20px);opacity: 0.2;}
+		.eac{transition: .5s;}
+		
+		.lac{transition: .5s;}
+		.ltc{transform: translateY(-20px);opacity: 0.2;}
+		
+		.mc{transition: .5s;}
+	</style>
+</head>
+<body>
+	<div id="vm">
+		<button type="button" @click="add">add</button>
+		<button type="button" @click="de">delete</button>
+		<button type="button" @click="cg">change</button>
+		<br />
+		<transition-group
+			enter-from-class= 'efc'
+			enter-active-class="eac"
+			
+			leave-active-class="lac"
+			leave-to-class="ltc"
+			
+			move-class="mc"  可以使得元素调换位置时有一个过渡 参考元素里的值
+			也可以用在元素进入  但是离开不行
+		>
+			<div class="num" v-for="i in arr" :key='i'>{{i}}</div>
+		</transition-group>
+	</div>
+</body>
+<script>
+	Vue.createApp({
+		data() {
+			return{
+				'arr':[1,2,3,4,5],
+				'nb':6,
+				'tt':'efc'
+			}   
+		},
+		methods:{
+			add(){
+				this.arr.splice(parseInt(Math.random()*this.arr.length),0,this.nb)
+				this.nb++
+			},
+			de(){
+				this.arr.splice(parseInt(Math.random()*this.arr.length),1)
+			},
+			cg(){
+				arrr = [6,2,3,4,1];
+				this.arr = arrr
+			}
+		}
+	}).mount('#vm')
+	
+</script>
+
+39.animate动画库的使用
+<link rel="stylesheet" type="text/css" href="animate.min.css"/>
+.fuck{
+		animation-duration: 3s;  持续时间
+		animation-delay: 1s;  延时
+		animation-iteration-count: 3; 次数 常用属性
+}
+<div class="animated fuck rubberBand "></div>
+
+在transition 只放active
+<transition  
+	enter-active-class="animated bounceInLeft"
+	leave-active-class="animated rotateInDownLeft"
+>
+
+40.beforeCreate created beforeMount mounted
+<body>
+	<div id="vm">
+		<div ref='gg' :style="vmst">{{msg}}</div>
+	</div>
+</body>
+<script>
+	Vue.createApp({
+		data() {
+			return{
+				'msg':1,
+				'vmst':{
+					'width':'100px',
+					'height':'100px',
+					'background':'red'
+				}
+			}
+		},
+		beforeCreate() {   数据 dom都没渲染
+			console.log('before',this.msg)		before undefined
+			console.log('before',this.$refs)	before {}
+		},
+		created() {			数据渲染了 dom没渲染
+			console.log('created',this.msg)		created 1
+			console.log('created',this.$refs)	created {}
+		},
+		beforeMount() {		数据渲染了 dom没渲染 
+			debugger;
+			console.log('beforeMount',this.msg)	beforeMount 1
+			console.log('beforeMount',this.$refs)	beforeMount {}
+		},
+		mounted() {			数据渲染了 dom渲染后  可以操作数据的最后一步
+			console.log('mounted',this.msg)		mounted 1
+			console.log('mounted',this.$refs)	mounted Proxy {gg: div}
+		}，
+		beforeUpdate() {  初次的渲染不会触发
+			页面渲染前	
+		},
+		updated() {
+			页面渲染后
+		}
+		
+	}).mount('#vm')
+</script>
+
+40.provide  inject 数据传递给所有子组件使用
+<script>
+	Vue.createApp({
+		data() {
+			return{
+				msg:'123'
+			}
+		},
+		provide(){    写成函数形式 可以使用data里的数据
+			return{
+				'hh':'555',
+				'ww':666,
+				'cao':this.msg  这样改了 下面不会改变 要用引用的方法0
+			}
+		},
+		components:{
+			kkk:{
+				inject:['hh','ww'],
+				template:`
+					<div>
+						{{hh}}
+					</div>
+				`,
+
+
+			}
+		}
+	}).mount('#vm')
+</script>
+
+41.mixins
+<script>
+	let mixt = {
+		data(){
+			return{
+				'msg':123
+			}
+		},
+		methods:{
+			go(){
+				console.log(this.kkk)
+			}
+		}
+	}
+	
+	Vue.createApp({
+		data() {
+			return{
+				kkk:222
+			}
+		},
+		methods:{
+			
+		},
+		mixins:[mixt] 有先后顺序，后面的会覆盖掉前面的 最后是vue里面的覆盖全部
+	}).mixin({
+		全局mixin
+	}).mount('#vm')
+</script>
+
+
+
+42.router的使用
+<script src="vue-router@4.js"></script> 引入
+</head>
+<body>
+	<div id="vm">
+		<h1>Fuck World</h1>
+			<router-link to='/'>  连接标签
+				首页
+			</router-link>
+			
+			<router-link to="/about">
+				关于
+			</router-link>
+			<router-view></router-view>  显示标签
+	</div>
+	
+</body>
+<script>
+	
+	1创建显示的内容
+	const Home = {"template":`<div>我是你爹</div>`}
+	const About = {'template':`<div>草了</div>`}
+	
+	2配置routes连接 注意 一定是routes 不能用其他名字
+	const routes = [
+		{"path":"/","component":Home},
+		{"path":"/about","component":About}
+	]
+
+	3创建router
+	const router = VueRouter.createRouter({
+		history:VueRouter.createWebHashHistory(), 在网页连接上生成后缀
+		routes
+	});
+	
+	var app = Vue.createApp({})
+	app.use(router)
+	app.mount('#vm')
+	
+</script>
+
+
+Vue-cli笔记
+1.import export
+amos.js:
+var a=1
+var b=2
+
+export default{
+	tt:4,
+	tb:55,
+}
+
+export{
+	a,b
+}
+
+<script type="text/javascript">
+	import fuck from './components/FuckWor.vue'
+	import {a,b} from './amos.js'   结构赋值 a=1 b=2
+	import ww from './amos.js'     得到{tt:4,tb:5}
+</script>
+
+2.setup  类似data个methods的结合体
+<script>
+import {ref} from 'vue'
+
+export default {
+	data(){
+		return{
+			tt2:1
+		}
+	},
+	setup() {
+		var num = ref(5)   setup的特性 改变里面的变量值页面不会渲染，除非刚好渲染。用ref可以解决这个问题
+		var go = function(){
+			this.num++
+		}
+		return {
+			num,go
+		}
+	},
+	methods:{
+		hh(){
+			this.num   methods可以用data和setup里的值
+		}
+	}
+}
+
+2.1ref注意要点
+export default{
+		components:{
+			prot
+		},
+		setup() {
+			let msg = ref('vue');
+			let num = ref(10);
+			setTimeout(()=>{
+				num.value = 1   官方赋值方法是num.value = ... 特别是在定时器里这样用才有效
+			},2000);
+			let go = function(){
+				this.num = 2
+			};
+			return{
+				msg,num,go
+			}
+		}
+		
+	}
+</script>
+
+
+3.props
+app.vue
+<template>
+  <img alt="Vue logo" src="./assets/logo.png">
+	<prot :pt='msg' :nn='num'></prot>
+	{{num}}
+	<button @click="go">222</button>
+</template>
+
+pro.vue
+<script>
+
+import {watchEffect,watch} from 'vue' 两种监听方法
+	export default{
+		props:['pt','nn'],  两种写法
+		// props:{
+		// 	"pt":String,
+		// 	'nn':Number
+		// },
+		setup(props){   传参进setup
+			watchEffect(()=>{
+				// console.log(props.pt)    此种数值在第一次进入时和改变时会触发
+			});
+			watch(()=>{
+				return props.nn
+			},
+			(newv)=>{
+				console.log(newv)   只有改变才会触发
+			})
+		}
+	}
+	
+</script>
+
+
+4.setup第二个参数 context
+
+
+<script>
+
+	export default{
+		props:['pt'],	
+		setup(props,ctx){
+			console.log(props);
+			console.log(ctx);  ctx能接受props没接受的参数
+			var {emit} = ctx;  方法可以被解构赋值 也可直接用 ctx.emit
+			var cao = function(){
+				emit('haha')
+				emit('haha','666') 有参数
+			}
+			return{
+				cao
+			}
+		}
+		
+	}
+	
+</script>
+
+
+
+<template>
+  <img alt="Vue logo" src="./assets/logo.png">
+	<prot :pt='msg' :nn='num' @haha='cgmsg'></prot> 这里用@haha接受
+	{{num}}
+	<button @click="go">222</button>
+</template>
+<script>
+	
+	export default{
+
+		setup() {
+						function(cs) 有参数则
+			var cgmsg = function(){
+				msg.value = 'caonisima'
+			}
+			return{
+				cgmsg
+			}
+		}
+		
+	}
+
+
+</script>
+
+5.context的slot
+<template>
+  <img alt="Vue logo" src="./assets/logo.png">
+	<ste>
+		123444
+		<template v-slot:header>
+			<h1>
+				<span>111</span>
+				<span>222</span>
+			</h1>
+		</template>
+		<template v-slot:fott='{k}'>
+			{{k}}
+			<span>{{k}}</span>
+		</template>
+	</ste>
+</template>
+
+
+<template>
+	<div>123</div>
+	<slot></slot>
+	<slot name="header"></slot>
+	<slot name="fott" :k='a'></slot> 传参法 不能ctx.slots.查看 会戳
+</template>
+<script>
+	
+	export default{
+		setup(props,ctx) {
+			var a = 20
+			console.log(props)
+			console.log(ctx.slots.header()[0].children[0].children)
+			ctx.slots.header()[0].children[0].children = '333'
+			
+			return{
+				a
+			}
+		}
+	}
+	
+</script>
+
+6.ref 个toRef的区别
+<script>
+ import {ref,toRef} from 'vue'
+	export default{
+		components:{
+			
+		},
+		setup(){
+			var obj = {
+				"name":'ni1masile'
+			};
+			var tss = 'nihao';
+			var tssref = ref(tss);
+			var tna = toRef(obj,'name');  第一个参数为对象 第二个是要引用哪个 数据可以引用下标如'1'
+			var go = function(){
+				tna.value = 'cao'
+				tssref.value = 'hhhh'
+				console.log(obj,tss)  输出{name: "cao"} "nihao" 这里obj被引用所以被改变了 tss没被改
+			}
+			return{
+				tssref,tna,go
+			}
+		}
+	}
+
+
+</script>
+
+7.toRefs   
+<template>
+  <img alt="Vue logo" src="./assets/logo.png">
+  <div>
+	{{name}}  和toref相似 不过可以少一个参数  也不是响应式的
+  </div>
+</template>
+<script>	
+	import {toRefs} from 'vue';
+	
+	export default{
+		setup() {
+			let Obj = {
+				"name":"leo",
+				"age":18
+			};
+			
+			let rfobj = toRefs(Obj)
+			
+			return{
+				...rfobj  用解构赋值的方法返回
+			}
+			
+		}
+	}
+</script>
+
+★★★重点方法
+8.reactive 响应式版的torefs 改变也会改变原有对象 但响应式
+<template>
+  <img alt="Vue logo" src="./assets/logo.png">
+  <div>
+	{{rfobj.name}}  单独用reactive 需要加个点调用
+	{{name}}    torefs和reactive 可以直接调用名字
+  </div>
+
+</template>
+
+
+<script>
+	
+	import {reactive,toRefs} from 'vue';
+	
+	export default{
+		setup() {
+			
+			let Obj = {
+				"name":"leo",
+				"age":18
+			};
+			
+			let Obj2 = {
+				"name":"fuck",
+				"age":22
+			};
+			
+			let rfobj = reactive(Obj)
+			
+			let rObj2 = reactive(Obj2)  先装reactive
+			let rfobj2 = toRefs(rObj2)  再装进toRefs
+			
+			return{
+				rfobj,...rfobj2
+			}
+			
+		}
+	}
+	
+</script>
+
+9.setup里的computed
+<script>
+	import {computed,ref} from 'vue'
+	export default {
+		setup(){
+			let a = ref(123); 要用ref封装 否则setup里的计算属性的a不会改变
+			let com = computed(()=>{  
+				return +a.value +1     第一种:直接在里面放函数，
+
+			})
+			let com = computed({
+				get(){
+					return +a.value +1   
+				},
+				set(va){
+					console.log(va)
+					console.log(a.value,va)   第二种，用set get 能反过来也改变a
+					a.value = va -1
+					// console.log(a.value,va)
+				}
+				
+			})
+			let go = function(){
+				console.log(this.a)
+				console.log(this.com)
+			}
+			
+			return{
+				a,com,go
+			}
+		}
+}
+
+可以直接放 vue-cli的 export  
+若是放在setup  created 和 beforeCreate 因为还没生成数据 或刚刚生成数据
+import {onBeforeMount,onMounted,onBeforeUpdate,onBeforeUpdate} from 'vue'  在setup用要这样
+export default{ 
+	data() {
+		return{
+			'msg':1,
+			'vmst':{
+				'width':'100px',
+				'height':'100px',
+				'background':'red'
+			}
+		}
+	},
+	beforeCreate() {  
+		console.log('before',this.msg)		
+		console.log('before',this.$refs)	
+	},
+	created() {		
+		console.log('created',this.msg)		
+		console.log('created',this.$refs)	
+	},
+	beforeMount() {	
+		console.log('beforeMount',this.msg)
+		console.log('beforeMount',this.$refs)	
+	},
+	mounted() {		
+		console.log('mounted',this.msg)		
+		console.log('mounted',this.$refs)	
+	},
+	beforeUpdate() { 
+		
+	},
+	updated() {
+	
+	}，
+	beforeUnmount(){
+		该组件被注销前	
+	},
+	unmounted() {
+		该组件被注销后  利用v-if可以
+	}
+}
+
+10.捕获子组件的的错误  无法捕获当前的
+import {onErrorCaptured} from 'vue'
+
+11.监听捕获   onRenderTriggered 针对某个变量引起的渲染  onRenderTracked所有渲染的都会被捕获（少用）
+<template>
+  <img alt="Vue logo" src="./assets/logo.png">
+  <button type="button" @click="go">111</button>
+	{{msg}}
+</template>
+<script>
+	import {onRenderTriggered,onRenderTracked} from 'vue'
+	export default{
+		data(){
+			return{
+				msg:'hh'
+			}
+		},
+		setup(){
+			onRenderTriggered((ev)=>{
+				console.log(ev)
+			});
+		},
+		methods:{
+			go(){
+				this.msg ='gg'
+			}
+		}
+		
+	}
+	
+</script>
+
+12.provide inject响应式
+<script>
+	import {provide,reactive,ref} from 'vue';
+	import {getCurrentInstance} from 'vue'
+	export default{
+		components:{
+			fuck
+		},
+		setup(){
+			let {ctx} = getCurrentInstance();
+			let a = ref('caonisima')
+			let json = {
+				a:'1111',
+				b:'222'
+			};
+			let newgo = ()=>{
+				a.value = '我是子组件操控的'
+			}
+			let rj = reactive(json)
+			provide('text',a)  可以加上ref  reactive 来响应
+			provide('rj',rj)   参数一位接收名 二为传递的东西
+			provide('newgo',newgo)  可以传递变量 对象 方法
+			return{
+				a,rj
+			}
+		},
+		methods:{
+			go(){
+				this.a = 'hhhhh'
+				this.rj.a = '7777'
+			}
+		}
+	}
+</script>
+
+组件vue
+<script>
+	import {inject} from 'vue'
+	export default {
+		setup(){
+			let tt = inject('text')  第二个参数为默认值
+			let bb = inject('cao','not found 404')
+			let dd = inject('rj','not found 404')
+			let newgo = inject('newgo')
+			return{
+				tt,bb,dd,newgo
+			}
+		}
+	}
+</script>
+
+13.setup里用this的办法 ctx相当于this
+<script>
+	import {getCurrentInstance} from 'vue'
+	export default{
+		data(){
+			return{
+				'msg':111
+			}
+		},
+		setup(){
+			let {ctx} = getCurrentInstance();
+			let go = function(){
+				console.log(ctx.msg)
+				ctx.$data.msg  = 222
+			}
+
+			return{
+				go
+			}
+		},
+
+	}
+</script>
+
+
+14.vuecli-router
+main.js
+import { createApp } from 'vue'
+import App from './App.vue'
+import {router} from './router.js'
+createApp(App).use(router).mount('#app')
+
+app.vue
+<template>
+  <img alt="Vue logo" src="./assets/logo.png">
+	<router-link to='/'>caonima</router-link>
+	<router-link to='/test/ccc'>点击就操</router-link>
+	<router-view></router-view>
+</template>
+
+router.js
+<script type="text/javascript">
+	import {createRouter,createWebHashHistory} from "vue-router"
+	import abc from "./components/AbCd.vue"
+	import rt from "./components/RouTs.vue"
+
+	export const router = createRouter({
+		history:createWebHashHistory(),
+		routes:[
+			{
+				"path":'/',
+				component:abc
+			},
+			{
+				"path":'/test',
+				component:rt,
+				children:[       要嵌套子组件时要在rt里加一个router-view
+					{
+						"path":'ccc',
+						component:abc,
+					}
+				]
+			}
+		]
+	})
+</script>
+
+rt的组件里
+<template>
+	<div>我叼你</div>
+	<router-view></router-view>
+</template>
+
+
+15.编程跳转
+this.$router.push({'name':"wodiao"})						?leo=123
+this.$router.push({'path':'/test',hash:`#caoniasima`,query:{"leo":'123'}},)
+					这些都能放到声明式导航里
+
+但要加冒号
+<router-link :to='{"name":"fuck",...}'>caonima</router-link>
+
+
+this.$router.go(n) 跳到第n步
+this.$router.replace() 与push相似 但不会有记录
+
+
+16.路由重定向 redirect
+routes:[
+	{
+		"path":'/',
+		components:{
+			default:abc,
+			zhangsan:rt,   //一个routes里显示多个组件
+		}
+	},
+	{
+		"path":'/test',
+		"name":'wodiao',
+		component:rt,
+		children:[     
+			{
+				"path":'ccc',
+				component:abc,
+			}
+		]
+	},
+	{
+		"path":'/haihai',
+		component:hai,
+		redirect:'/test'   也可用名字{'name':'wodiao'} 还可以加hash query这些
+		redirect:to=>{
+			return {'path':...,query:{'nnn'}:to.params.abc} to里有这个route的内容
+		}
+		
+	}
+]

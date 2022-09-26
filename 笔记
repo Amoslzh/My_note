@@ -1,0 +1,604 @@
+=<!doctype html>   //头文件
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 编码方式
+	<title>网页名</title>
+</head>
+<body>
+    网页内容
+</body>
+</html>
+
+<div>一层一层，一行一行</div>
+
+<img src="图片地址">
+                      //跳转后原页面不关闭
+<a href="跳转网页地址" target="_blank">点击的内容，文字或图片</a>
+
+<ul>
+	<li></li>   无序列表
+	<li></li>
+	<li></li>
+</ul>
+
+<ol>
+	<li></li>  有序列表
+
+</ol>
+
+<dl>  自定义列表  definition
+	<dt></dt>
+	<dd></dd>
+</dl>
+
+tools -> develop -> new snippet  自定义代码段
+
+<p>段落</p>  与div不同是每行有空
+
+<input type="text" name=""> 输入框
+            password 密码
+            checkbox 复选框   radio 单选   colour
+
+<button>按钮</button>
+
+
+
+html  各种标签
+CSS   对标签的形容
+javascript 
+
+内嵌直接在代码里写
+<style>
+	标签选择器{样式:样式值} 
+</style>
+
+外链 写个文件
+然后
+<link rel="stylesheet" type="text/css" href="文件位置">
+
+行内
+<div style=""></div>
+
+
+
+一般来说用外链
+
+执行优先级：行内 > 内嵌 >= 外链
+
+id选择器 唯一 >class选择器 多个
+
+<style type="text/css">
+		#fuck{...}
+		.cao{...}
+</style>
+
+<div id='fuck'></div>
+<div class="cao"></div>
+
+
+<style type="text/css">
+	.mydiv{width: 600px;height:600px;background-image: url(cat.jpg);background-position:center;background-repeat: no-repeat;background-color: red; }背景
+	div{margin-left: 10px;padding: : 30px 100px;float: left; }
+                                     浮动方式
+
+缩写
+大小不变 外边距margin:上右下左   上 左右 下   上下 左右    上下左右
+扩充大小 文本在中间 内边距padding
+
+
+块状：支持宽高 独占一行
+
+行内元素：不支持宽高，支持margin padding 不独占一行，横着摆放，
+会受行高的影响 给浮动 float可以变成块状元素
+span
+a  
+color:red   rgb(..,..,..)  #,,,,;  
+
+
+border - 边框
+border: 大小  (solid实线  dashed虚线) 颜色
+   字体  大小                         字体粗细，可填数值
+.myp{font-size: 20px;color: yellow;font-weight: bold;font-family: 百度搜字体英文} 
+
+
+.mydiv{height: 200px;border: 1px solid black;line-height: 100px}
+							行高 当行高和元素一样高时在中间
+1.常用px  可以控制行内元素 不能控制块状
+2.%  继承父级的高度的来控制的
+
+p{font:small-caps italic bold 15px/30px fantasy;}  font缩写
+  字母变小型大写字母 斜体  粗体  大小/行高  字体
+.he{text-align: center;font-size: 22px;color: black;}
+     文字定位             
+</style>   
+
+定位
+position
+<style type="text/css">                                                  相对定位
+	.mydiv1{width: 200px;height: 200px;background-color: green;position: relative; left:200px;float: left;z-index: 3}层级越高显示越上面
+	.mydiv2{width: 200px;height: 200px;background-color: red;position: relative; float: left;z-index: 2}
+</style>
+
+绝对定位：absolute
+1.脱离标准流
+2.原来的位置不会留着
+3.根据有定位的父类元素定位，没有父类找到最外层直到Html标签定位
+
+
+窗口定位：fixed
+只会根据窗口定位
+如广告
+
+继承定位：inherit
+
+默认定位：static 无定位
+
+
+display:none 让元素消失
+		block 变成块状元素  inline 变成行内元素  inline-block 横着码放，不独占一行，支持宽高
+
+px 绝对单位 
+%相对单位  （相对父级元素） 块状元素高度默认0px；
+
+<style type="text/css">
+	div{opacity: 0.5 透明度;}
+</style>
+
+1.类覆盖
+css的类是可以被一个元素同时使用多个的，也就说某个元素可以同时使用多个class样式，但是如果发生了样式冲突会出现后者覆盖前者的现象。（前类与不后类不重合的地方不变）
+<div class="div1 div2"></div>   di2覆盖到div1里
+
+
+2.body html没高度 最后的document有  所以要top:50%时，需要html body{top:100%}
+
+
+块
+div:文档节(html中最大的盒子)
+section:文档节
+nav:导航
+header:页眉
+article:文章
+aside:文章侧栏
+footer:页脚
+details:元素的细节
+summary:details元素可见的标题
+dialog:对话框窗口
+h1,h2,h3,h4,h5,h6:1-6级标题
+p:段落
+ul:无序列表
+ol:有序列表
+dir:目录列表
+li:项目
+dl:列表
+dt:列表项目
+dd:项目描述
+menu:命令的菜单,列表
+submenu：二级菜单
+menuitem:菜单项目
+command:命令按钮
+form:表单
+fieldset:围绕元素的边框(可用于表单内元素分组)
+legend:在边框上的标题
+select:选择列表(内联元素)
+optgroup:组合选择列表选项
+option:选择列表选项(也可做datalist选项)
+datalist:下拉列表(id要与input中list属性值绑定)
+table:表格
+caption:表格标题
+thead:组合表头内容(th)
+tbody:组合主体内容(td)
+tfoot:组合表注内容(td)
+tr:表格行
+th:表头单元格
+td:表格单元
+col:表格列属性;(空标签)
+colgroup:表格格式化列组;
+iframe:内联框架
+figure:媒介内容分组
+figcaption:figure标题
+map:图像映射
+area:图像区域
+canvas:图形容器(脚本来绘制图形)
+video:视频
+source:媒介源
+track:文本轨道
+audio:声音内容
+br:换行(空标签)
+hr:水平分割线(空标签)
+pre:格式文本
+blockquote:块引用
+address:文档联系信息
+center:居中文本(不赞成使用)
+spacer:在水平和垂直方向插入空间(空元素)
+
+行内
+img:图片
+span:内联容器
+select:下拉列表
+input:输入框
+button:按钮
+abbr:缩写
+em:强调
+strong:粗体强调
+mark:突出显示的文本
+b:粗体
+i:斜体
+bdi:文本方向
+bdo:文字方向
+big:大字体
+small:小字体
+sup:上标（a的n次方的写法）
+sub:下标（可以用来写谁的化学式）
+del:被删除的文本
+strike:删除线
+s:删除线
+ins:被插入的文本
+u:下划线
+nobr:禁止换行
+wbr:单词换行时机(空标签)
+tt:打字机文本
+kbd:键盘文本
+time:日期/时间
+cite:引用
+q:短引用("")
+font:字体设定(不常用)
+acronym:缩写(html5不支持)
+dfn:字段(不常用)
+a:锚点
+embed:内嵌(空标签)
+label:input标记(点击文本触发控件)
+keygen:生成秘钥(空标签)
+textarea:多行文本输入框
+output:输出结果
+ruby:中文注音
+rt:注音
+rp:浏览器不支持ruby元素显示的内容
+progress:进度条
+meter:度量
+var:定义变量
+code:计算机代码文本
+samp:计算机代码样本
+
+
+1.百分比参考
+<style type="text/css">
+	.er{width: 200px;height: 200px;}
+
+</style>
+
+2.控制图片大小
+
+img{width:100px;}给其中一个长度高会自适应
+<img src="">
+
+<style type="text/css">
+	div{width: 200px;height: 200px;background: url(./.../t.jpg);background-size: 20px 25px}
+	通过background-size改变大小
+
+</style>
+
+
+HTML5 CSS3
+1.圆角样式
+<style type="text/css">
+	
+	div{border-radius-left: 2px}
+
+	可以指定1-4个值来控制4个角
+	2：左上右下  右上左下
+	3：左上 右上左下 右下
+	4：左上 右上 右下 左下
+	也可用% 50%为最大
+</style>
+
+2.阴影样式
+<style type="text/css">
+	div{width: 100px;height: 100px;box-shadow: 0px 0px 10px 0px black,inset 0 0 10px 0 #DDA0DD;background-color: #0000FF;margin: 100px;}
+</style>
+参数  x y blur模糊度 spread扩展(可省略) color  若是内阴影 则要加上inset  可有有无限个阴影
+
+3.transition 过渡样式
+<style type="text/css">
+	
+	div{width: 100px;height: 100px;transition:all 0 ease 0 }
+
+	指定过渡样式  过渡时间  过渡曲线  延时时间
+
+	过渡曲线常用参数：linear ease ease-in ease-out ease-in-out 或者自定义 可在浏览器里设定
+</style>
+
+4.transform:scale 变形
+<style type="text/css">
+	div{width: 100px;height: 100px;box-shadow: 0px 0px 10px 0px black;background-color: #0000FF;margin: 100px;
+	transition: 3s ;}
+
+	div:hover{transform: scale(-1,1);}  也可scaleX scaleY  若scale 第一个值为x 第二个y 只有一个则xy 变大变小 负数为镜像
+</style>
+
+
+5.transform:translate 平移
+<style type="text/css">
+	div{width: 100px;height: 100px;box-shadow: 0px 0px 10px 0px black;background-color: #0000FF;margin: 100px;
+	transition: 3s ;}
+
+	div:hover{transform:translate(20px,40px);}
+
+	translate(translateX,translateY)  只给一个值则translateX  可以给%  （相对于宽度%，相对于高度%）
+</style>
+
+6.transform:rotate 旋转
+<style type="text/css">
+	div{width: 100px;height: 100px;box-shadow: 0px 0px 10px 0px black;background-color: #0000FF;margin: 100px;}
+	div:active{transform:rotate(750deg);}  负数为逆时针
+
+	6.1transform-origin 旋转中心  不止可以用在rotate
+	div{width: 100px;height: 100px;box-shadow: 0px 0px 10px 0px black;background-color: #0000FF;margin: 100px;
+		transition: 1s;transform-origin: left bottom;transform-origin: 30px 30px;} 
+		div:active{transform:rotate(50deg);}
+</style>
+
+7.transform:skew  扭曲
+<style type="text/css">
+	div{width: 100px;height: 100px;box-shadow: 0px 0px 10px 0px black;background-color: #0000FF;margin: 100px;}
+	div:active{transform:rotate(750deg);}  负数为逆时针
+</style>
+
+8.transform:rotateX rotateY  3D旋转效果 绕X轴 绕Y轴
+<style type="text/css">
+	div{width: 100px;height: 100px;box-shadow: 0px 0px 10px 0px black;background-color: #0000FF;margin: 100px;
+	transition: 1s;transform-origin: left bottom;transform-origin: 30px 30px;} left center
+	div:active{transform:rotateX(50deg) rotateY(50deg);}
+</style>
+
+9.transform:perspective 景深
+<style type="text/css">
+	div{width: 100px;height: 100px;box-shadow: 0px 0px 10px 0px black;background-color: #0000FF;margin: 100px;
+	transition: 3s;transform:perspective(800px); }  有transition时最好在前面再加一个perspective 因为默认是0
+	div:active{transform:perspective(800px) rotateX(100deg)}
+</style>
+
+
+transform 变形样式一起改时 是从左到右执行
+
+10.transform:translateZ  元素距离父元素Z轴上的一个距离  !!!!把景深放最前面
+<style type="text/css">
+	#vm{width: 100px;height: 100px;box-shadow: 0px 0px 10px 0px black;background-color: #0000FF;margin: 100px;
+	transition: 1s;transform:perspective(400px);position: relative;transform-style: preserve-3d;} 
+
+	一定要加个 transform-style: preserve-3d 否则 看不到效果
+
+	div .top{width: 100px;height: 100px;position: absolute;left: 0px;top: 0px;background-color: #DDA0DD;transform:translateZ(100px) ;}
+	/* div:active{transform:perspective(400px) translateZ(400px);} */
+</style>
+<div id="vm">
+	<div class="top"></div>
+</div>
+<script type="text/javascript">
+	setInterval(function(){
+		a++
+		vm.style.transform = `perspective(400px) rotateY(${a}deg)`  以Y轴旋转
+	},10)
+
+</script>
+
+
+11.选择器
+11.1相邻选择题  选择相邻下面第一个
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		.leo{color: red;}
+		.leo+li+li{color: pink;}
+	</style>
+</head>
+<body>
+	<ul>
+		<li>1111</li>
+		<li class="leo">2222</li>
+		<li>3333</li>
+		<li>4444</li>  变粉色
+		<li>5555</li>
+		<li>6666</li>
+	</ul>
+</body>
+
+11.2兄弟选择器 选择相邻下面
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		.leo{color: red;}
+		.leo~li{color: pink;}
+	</style>
+</head>
+<body>
+	<ul>
+		<li>1111</li>
+		<li class="leo">2222</li>
+		<li>3333</li>    变粉色
+		<li>4444</li> 	 变粉色
+		<li>5555</li>	 变粉色
+		<li>6666</li>	 变粉色
+	</ul>
+</body>
+
+11.3指定选择器
+<style type="text/css">
+	.leo{color: red;}
+	li:nth-of-type(2){color: pink;}  从第一个开始数 这里是第二个
+	ul>li:nth-last-of-type(1){color: green;}  从最后一个开始数
+	ol>li:nth-of-type(odd){color: #FF0000;}  奇数 1 3 5 7.。。
+	ol>li:nth-of-type(even){color: #FF0000;} 偶数
+	ol>li:nth-of-type(3n+1){color: blue;} 自定义 n=0,1,2...
+</style>
+
+11.4子元素选择器
+指定元素的父级->子集数下去->判断是不是指定的元素
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		li:nth-child(2){color: red;}   
+		li:nth-child(3){color: red;}
+		li:nth-last-child(2){color: red;}
+	</style>
+</head>
+<body>
+	<ul>
+		<li>1111</li>
+		<li class="leo">2222</li>  红
+		<span>3333</span>  不变红 因为他是span  
+		<li>4444</li>
+		<li>5555</li>红
+		<li>6666</li>  
+	</ul>
+</body>
+
+11.5属性选择题
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		li[cao]{color: red;}   li中含有cao属性的
+		[class]{color: aqua;}  所有含有class属性的
+		li[ni='aaa']{color: red;}  li中含有ni属性并且等于aaa
+		span[ni~='aaa']{color: red;} span中含有ni属性 并且包含aaa
+	</style>
+</head>
+<body>
+	<ul>
+		<li cao='aaa'>1111</li>    red
+		<li class="leo">2222</li>  aqua
+		<span ni='aaa bbb'>3333</span>  red
+		<li ni='aaa'>4444</li>  red
+		<li>5555</li>
+		<li>6666</li>
+	</ul>
+</body>
+
+11.6属性选择器2
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		li[ni^='aaa']{color: red;}   属性的第一个含有aaa
+		span[ni$='aaa']{color: red;} 属性最后一个有aaa
+		div[ni*='aaa']{color: red;}  属性中含有aaa
+	</style>
+</head>
+<body>
+	<ul>
+		<li ni='aaac  bbb'>1111</li>  红
+		<li ni='caaa  bbb'>1111</li>  不变 因为要第一个 caaa不算第一个含有a
+		<span ni='bbb aaa'>3333</span> 变红 最后一个有aaa
+		<div ni='eqasaaab ccc'>4444S</div> 红
+	</ul>
+</body>
+
+11.7非内容选择器
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		div:not(.cao,[bu]){color: red;}   :not(.cao,[bu])括号里放选择器 除了括号里的都被选择
+	</style>
+</head>
+<body>
+	<div class="cao">111</div>
+	<div bu='mmm'>222</div>
+	<div>333</div>
+</body>
+
+
+12.display: flex;
+容器命令里面的元素排序
+<style type="text/css">
+
+	.cao{
+		display: flex;
+		flex-direction: row-reverse;
+		flex-direction: row; 默认  从做到右
+		flex-direction: column; 从上到下
+		flex-direction: column-reverse;从下到上
+
+	}
+
+</style>
+
+13.flex-grow 把剩下的位置分出去
+<style type="text/css">
+	
+	.ult{
+		flex-wrap: wrap;包块 一行挤不下就放下一行 默认nowrap
+	}
+	
+</style>
+
+
+14.横轴线对齐justify-content
+<style type="text/css">
+	.ult{
+			display: flex;flex-wrap: wrap;
+			justify-content: flex-end; 右对齐  默认flex-start左对齐
+			justify-content: space-around;  环绕对齐
+			justify-content: space-between; 两端对其
+			justify-content: center;中心对齐
+			justify-content: space-evenly; 两端对齐时 两边的空隙想等
+			
+			}
+</style>
+
+15.纵向轴对齐align-items
+<style type="text/css">
+	.ult{
+			display: flex;flex-wrap: wrap;
+			align-items: flex-start;上方对齐 默认
+			align-items: flex-end;下方对齐
+			align-items: center;中心对齐
+			align-items: stretch;没给高度的拉伸到最长
+			align-items: baseline; 以最高的line-height为基准
+			
+			}
+</style>
+
+16.order 弹性布局中改变元素的顺序 flex-shrink控制缩小比例
+<style type="text/css">
+	li{
+		order: -1;
+		flex-shrink: 1; 超过容器时缩小的比例 默认为1 越大越缩  0为不缩数字越小越前
+		align-self: ;   上述要单独设置可以这样
+		justify-self: ;
+	} 
+</style>
+
+总结
+justify-content
+轴线对齐
+默认值 flex-start 轴线左对齐
+	  flex-end   轴线右对齐
+	  center     轴线中心对齐
+	  space-between 两端对齐 中间相等距离隔开
+	  space-around 环绕对齐 中间相等距离隔开
+	  
+	  
+align-items
+纵向轴控制方式
+
+align-items
+默认 flex-start 以上方对齐
+	flex-end   以下方对齐
+	center     以中心对齐
+	stretch    拉伸 如果只有一层横向轴直接拉满，作用于没有高度的元素
+	baseline   以最高的line-height为基准
+	
+align-content
+多层（轴）排序 如果单层没有任何意义
+
+inherit    默认值 默认平均分配高度给每一层
+flex-start 下一层从第一层元素的最高元素之后 以上边界
+flex-end 下一层从第一层元素的最高元素之后 以下边界
+center  以元素中心为基准
+space-between 上下轴对齐 中间相等距离隔开
+space-around 上下环绕对齐 中间相等距离隔开

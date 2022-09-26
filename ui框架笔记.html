@@ -1,0 +1,168 @@
+<script src="greensock-js/src/minified/TweenMax.min.js"></script>
+动画框架
+
+1.基本操作
+<script type="text/javascript">
+			
+	参数 类/id 变换时间 变换状态
+
+
+	1.1from 从什么状态变到原始状态
+	TweenLite.from('#vm',4,{    
+		'width':300,
+		'height':150,
+		'x':200,
+		'backgroundColor':'blue',
+		'rotation':100
+	})
+	
+	1.2to 从原始状态变到什么状态
+	TweenLite.to('#vm',3,{
+		'width':300,
+		'height':200,
+		'x':100,
+		'backgroundColor':'green',
+		'rotation':100
+	});
+	
+	1.3formto 从某状态变换到某状态
+	TweenLite.fromTo('.vm',5,{
+		'width':300,
+		'height':150,
+		'x':200,
+		'backgroundColor':'blue',
+		'rotation':100
+	},{
+		'width':300,
+		'height':200,
+		'x':100,
+		'backgroundColor':'green',
+		'rotation':10
+	});
+
+	1.4staggerTo 批量操作类  第四个参数 每个元素操作间隔时间
+
+	新概念 cycle 轮换样式
+	TweenMax.staggerTo('.vm',1,{
+		cycle:{
+			backgroundColor:['red','pink','black'],
+			y:function(index){
+				return (index+1) * 20
+			}
+			
+		},
+		y:40,
+		opacity:0,
+		rotation:170,	
+	},0.2)  
+	
+	TweenMax.staggerFrom('.vm',1,{
+		cycle:{
+			backgroundColor:['red','pink','black'],
+			y:function(index){
+				return (index+1) * 20
+			}
+			
+		},
+		y:40,
+		opacity:0,
+		rotation:170,	
+	},0.2)
+	
+	TweenMax.staggerFromTo('.vm',1,{
+		cycle:{
+			backgroundColor:['red','pink','black'],
+			y:function(index){
+				return (index+1) * 20
+			}
+			
+		},
+		opacity:0,
+		rotation:170,	
+	},{
+		cycle:{
+			backgroundColor:['red','pink','black'],
+			y:function(index){
+				return (index+1) * 50
+			}
+			
+		},
+		opacity:1,
+		rotation:30,	
+	},0.2)
+</script>
+
+2.配合vue使用
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<script src="Vue3.js"></script>
+		<script src="greensock-js/src/minified/TweenMax.min.js"></script>
+		<style>
+			*{list-style: none;}
+			
+		</style>
+	</head>
+	<body>
+		<div id="vm">
+			<input type="text" v-model="msg"/>
+			<ul>
+				<transition-group
+					@leave="lve"
+					@before-enter="bet"
+					@enter="et"
+				>
+					<li v-for="(it,index) in rarr" :key='index'>{{it}}</li>
+				</transition-group>
+				
+			</ul>
+		</div>
+	</body>
+	<script>
+		Vue.createApp({
+			data() {
+				return{
+					arr:['cao','ni','si','ma','sdwqc'],
+					msg:''
+				}
+			},
+			computed:{
+				rarr(){
+					var newarr = []
+					for(let i=0;i<this.arr.length;i++)
+					{
+						if(this.arr[i].indexOf(this.msg) != -1)
+						{
+							newarr.push(this.arr[i])
+						}
+					}
+					return newarr;
+				}
+				
+			},
+			methods:{
+				lve(el,done){
+					TweenMax.to(el,.5,{
+						opacity:0,
+						x:50,
+					})
+				},
+				bet(el){
+					TweenMax.from(el,.5,{
+						opacity:1,
+						x:50,
+					})
+				},
+				et(el,done){
+					TweenMax.to(el,.5,{
+						opacity:1,
+						x:0,
+					})
+				},
+			}
+		}).mount('#vm')
+	</script>
+</html>

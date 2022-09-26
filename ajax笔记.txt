@@ -1,0 +1,56 @@
+ajax: asynchronous javascript and xml 异步的JS和XML
+通过AJAX可以在浏览器中向服务器发送异步请求，
+
+优势：无刷新获取数据，允许根据用户事件来更新部分页面内容
+
+缺点：没有浏览历史，不能回退。存在跨域问题。爬虫不友好
+
+
+2.http协议
+hypertext transport protocol 协议【超文本传输协议】。
+规定了浏览器和万维网服务器之间相互通信的规则
+
+
+##请求报文
+
+行   请求方式（POST/GET） ;  请求的url ; HTTP/1.1  版本
+头   	Host：gg
+		Cookie: name=gg
+		Coenten-type: ..
+		User-Agent: ...
+空行
+体	GET 请求体是空的 POST 可以不为空
+
+
+## 响应报文 
+ 
+行  HTTP/1.1 200 OK    ：HTTP版本 响应码 对应的响应字符串
+头		Content-Type: text/html..
+
+空行
+体		  <html>
+				。。。。
+			</html>
+
+
+
+3.express的简单使用
+//1引入express
+const express = require('express')
+
+//2.创建应用对象
+const app = express();
+
+//创建路由规则
+//request 是对请求报文的封装
+//response 是对响应报文的封装
+app.get('/',(request,response)=>{
+	//设置响应
+	response.send('wo cao ni ma');
+});
+
+
+//4.监听端口启动服务
+app.listen(8000,()=>{
+	console.log("服务器启动，用的8000端口");
+})

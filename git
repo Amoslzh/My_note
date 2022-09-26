@@ -1,0 +1,61 @@
+1.在此目录创建仓库  （隐藏文件）
+git init
+
+2.上传清单
+git add
+
+3.查看清单内容
+git status
+
+4.提交仓库
+git commit -m "备注的信息"
+
+5.查看版本库的内容
+git log
+参数 --pretty=oneline  显示一行     --oneline 显示一行 部分哈希值
+
+6.还原版本
+git reset --hard  HEAD^ 回退一个版本 HEAD^^回退两个版本 HEAD~数字 回退数字版本
+
+git reset --hard  版本号
+
+7.查看历史命令
+git reflog
+
+
+
+8.撤回操作方法
+情况1：在git add之前
+git checkout -- 文件名
+
+情况2：已经add了
+git reset HEAD 文件名
+或
+git restore --staged 文件名
+
+然后用
+git checkout -- 文件名  git restore 文件名 恢复原来的版本
+
+
+9.删除文件
+git rm .\cao.txt
+
+撤销删除的提交
+git restore --staged cao.txt
+
+还原删除的文件
+git restore cao.txt
+
+git push -u origin main 提交到github
+
+
+10.分支方法
+git branch name 创建name分支
+git branch 查看所有分支
+git checkout name 转移到name分支
+git merge name 合并name分支到当前分支
+git branch -D name 删除name分支
+
+
+
+##Git与github连接
