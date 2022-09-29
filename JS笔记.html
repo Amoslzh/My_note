@@ -1022,3 +1022,54 @@ const支持块级作用域并且和let不能被变量提升
 	},500)
 	
 </script>
+
+
+
+
+ES6 学习
+
+1.let特性
+<script type="text/javascript">
+	1.1不能重复声明
+	1.2不存在变量提升   var可以在声明之前输出undefined
+	1.3块级作用域
+	{
+		let a=2; 在{}外面无法使用
+	}
+</script>
+
+
+2.箭头函数特性
+()=>{}
+
+<script type="text/javascript">
+
+2.1 this始终指向函数声明时所在作用域下的this的值
+例子：
+let showname = ()=>{
+	console.log(this.name)
+}
+
+var name ='you'
+const testa = {
+	name:'fuck'
+}
+
+showname.call(testa); 结果: you  
+无法使用call使得箭头函数的this指向改变
+
+2.2 不能作为构造函数实例化
+
+2.3 不能使用 arguments
+
+2.4 简写
+1）当只有一个形参 括号省略
+let add = n =>{
+	return n + n
+}
+
+2) 当代码只有一句 省略花括号 此时return 必须省略
+let pow = n=> n*n;
+
+
+</script>

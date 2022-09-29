@@ -54,3 +54,82 @@ app.get('/',(request,response)=>{
 app.listen(8000,()=>{
 	console.log("服务器启动，用的8000端口");
 })
+
+
+4.JSON数据的获取
+app.get('/server',(request,response)=>{
+
+	response.setHeader('Access-Control-Allow-Origin','*')
+	const msg = {'name':'nima','age':18}
+	//设置响应
+	response.send(JSON.stringify(msg)); //需要酱JSON转为字符串才能发送
+});
+
+getaj(){
+	const xhr = new XMLHttpRequest();
+	
+	//方法二 把接受类型设置为json
+	xhr.responseType = 'json';
+	
+	xhr.open('GET','http://127.0.0.1:8000/server')
+	xhr.send()
+  
+	xhr.onreadystatechange = ()=>{
+		if(xhr.readyState === 4){
+			if(xhr.status >= 200 && xhr.status <300){
+				// this.msg = xhr.response;
+				//方法一手动转为JSON格式
+				// let data = JSON.parse(xhr.response)
+				this.msg = xhr.response.name
+			}
+		}
+	}
+}
+
+
+5.node 服务端插件
+npm install -g nodemon
+可以不用自己重启
+nodemon .\etest.js
+
+6.IE浏览器缓存数据不刷新问题
+xhr.open('GET','http://127.0.0.1:8000/server？t='+Date.now())
+这样每次都是发送不同的请求 IE浏览器不会再去访问缓存
+
+
+7.网络超时，异常处理  手动取消请求
+xhr.timeout = 2000; 设置最大请求时间 当超过这个事件 触发回调函数ontimeout
+
+xhr.ontimeout = ()=>{
+	alert('请求超时')
+}
+xhr.onerror = ()=>{
+	alert('网络异常')
+}
+
+8.手动取消请求
+xhr.abort() 手动取消请求
+
+if (fa) {
+	如果正在发送 则 xhr.abort()  避免重复请求问题
+}
+
+if(xhr.readyState === 4)
+{
+	fa = false    状态为4时 发送已完成
+}
+
+
+9.response
+
+then(response=>{
+
+	response.status //响应状态码
+
+	response.statusText 响应字符串
+
+	response.headers 响应头信息
+
+	response.date 响应体
+
+})
